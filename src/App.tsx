@@ -13,18 +13,25 @@ export default function App() {
     <>
       <div className="classCentered">
         <input type="text" value={inputValue} onChange={(e) => setInputValue(e.target.value)} />
-        <button onClick={() => addTasks(inputValue)}>добавить</button>
+        <button
+          onClick={() => {
+            addTasks(inputValue);
+            setInputValue("");
+          }}
+        >
+          добавить
+        </button>
         {tasks.length === 0 && <p>пусто</p>}
         <ul>
-          {tasks.map((tasks) => {
+          {tasks.map((task) => {
             return (
-              <>
-                <li key={tasks.id}>{tasks.text}</li>
-                <button onClick={() => removeTask}>удалить</button>
-                <button onClick={() => taskTogle}>
-                  {tasks.done === false ? "не выполнено" : "выполнено"}
+              <li key={task.id}>
+                {task.text}
+                <button onClick={() => removeTask(task.id)}>удалить</button>
+                <button onClick={() => taskTogle(task.id)}>
+                  {task.done === false ? "не выполнено" : "выполнено"}
                 </button>
-              </>
+              </li>
             );
           })}
         </ul>
