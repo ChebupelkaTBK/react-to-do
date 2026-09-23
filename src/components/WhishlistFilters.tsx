@@ -1,8 +1,13 @@
+import { useShallow } from "zustand/shallow";
 import { useWishlistStore } from "../store/wishlistStor";
 
 export default function WishlistFilters() {
-  const filter = useWishlistStore((state) => state.filter);
-  const setFilter = useWishlistStore((state) => state.setFilter);
+  const { filter, setFilter } = useWishlistStore(
+    useShallow((state) => ({
+      filter: state.filter,
+      setFilter: state.setFilter,
+    })),
+  );
 
   return (
     <div>

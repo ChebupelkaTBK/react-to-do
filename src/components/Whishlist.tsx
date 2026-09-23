@@ -1,10 +1,15 @@
+import { useShallow } from "zustand/shallow";
 import { useWishlistStore } from "../store/wishlistStor.ts";
 
 export default function WishlistList() {
-  const items = useWishlistStore((state) => state.items);
-  const toggleBought = useWishlistStore((state) => state.toggleBought);
-  const removeItem = useWishlistStore((state) => state.removeItem);
-  const filter = useWishlistStore((state) => state.filter);
+  const { items, filter, toggleBought, removeItem } = useWishlistStore(
+    useShallow((state) => ({
+      items: state.items,
+      filter: state.filter,
+      toggleBought: state.toggleBought,
+      removeItem: state.removeItem,
+    })),
+  );
 
   if (items.length === 0) {
     return <p>Список пуст</p>;
